@@ -1,0 +1,33 @@
+apiVersion: data.packaging.carvel.dev/v1alpha1
+kind: Package
+metadata:
+  name: where-for-dinner-search-proc.my-apps.tap.20231022021129.0.0+build.02e9424
+spec:
+  refName: where-for-dinner-search-proc.my-apps.tap
+  version: 20231022021129.0.0+build.02e9424
+  releaseNotes: |
+    Release v20231022021129.0.0+build.02e9424 of package where-for-dinner-search-proc.my-apps.tap
+  template:
+    spec:
+      fetch:
+      - imgpkgBundle:
+          image: dev.registry.tanzu.vmware.com/tanzu-application-platform/ci-pipeline/apps-21-10-2023-22-51-00-455092395/where-for-dinner-search-proc-my-apps-bundle@sha256:6600ebb7ed1c87c0dd520221afa5183999567d20988d403554e1b5ff61358b4c
+      template:
+      - ytt:
+          paths:
+          - .
+      - kbld:
+          paths:
+          - .imgpkg/images.yml
+          - '-'
+      deploy:
+      - kapp: {}
+  valuesSchema:
+    openAPIv3:
+      type: object
+      additionalProperties: false
+      properties:
+        workload_name:
+          type: string
+          default: ""
+
